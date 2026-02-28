@@ -16,6 +16,9 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useEffect, useState } from "react";
+import { getUser, UserLogout } from "@/services/auth";
+import { useRouter } from "next/navigation";
 
 /**
  * Replace this with your real auth hook (NextAuth / custom auth)
@@ -31,7 +34,34 @@ const mockUser: User | null = null;
 // const mockUser: User = { name: "Rony", role: "CUSTOMER" };
 
 export default function Navbar() {
-  const user = mockUser; // replace with real user state
+    const [user,setUser] = useState(null)
+    const [loading,setLoading] = useState(false)
+    const router = useRouter();
+
+    console.log(user);
+
+    useEffect(()=>{
+      const getCurrentUser = async() =>{
+        const userData = await getUser()
+        setUser(userData)
+      }
+
+      getCurrentUser()
+    },[])
+
+
+    // logout feature
+    const handleLogout =async ()=>{
+          
+
+         await UserLogout()
+         setUser(null)
+         setLoading(true)
+         router.push("/login")
+    }
+
+
+  //const user = mockUser; // replace with real user state
 
   return (
     <nav className="border-b bg-white">
@@ -66,7 +96,7 @@ export default function Navbar() {
           )}
 
           {user && (
-            <UserDropdown user={user} />
+            <UserDropdown user={user} onLogout={handleLogout}  />
           )}
         </div>
 
@@ -88,7 +118,7 @@ export default function Navbar() {
                 {!user && (
                   <>
                     <Link href="/login">
-                      <Button variant="outline" className="w-full">
+                      <Button  variant="outline" className="w-full">
                         Login
                       </Button>
                     </Link>
@@ -99,6 +129,7 @@ export default function Navbar() {
                     </Link>
                   </>
                 )}
+
 
                 {user && (
                   <>
@@ -115,9 +146,10 @@ export default function Navbar() {
                     {user.role === "ADMIN" && (
                       <Link href="/admin">Admin Dashboard</Link>
                     )}
-                    <Button variant="destructive">Logout</Button>
+                    <Button onClick={handleLogout} variant="destructive">Logout</Button>
                   </>
                 )}
+
               </div>
             </SheetContent>
           </Sheet>
@@ -130,7 +162,7 @@ export default function Navbar() {
 
 /* ================= USER DROPDOWN ================= */
 
-function UserDropdown({ user }: { user: User }) {
+function UserDropdown({ user, onLogout }: { user: User; onLogout:()=> void}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -171,9 +203,14 @@ function UserDropdown({ user }: { user: User }) {
           </DropdownMenuItem>
         )}
 
-        <DropdownMenuItem className="text-red-500">
-          Logout
-        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+  <button
+    onClick={onLogout}
+    className="w-full text-left text-red-500"
+  >
+    Logout
+  </button>
+</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

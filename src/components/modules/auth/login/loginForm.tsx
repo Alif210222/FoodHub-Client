@@ -30,6 +30,8 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group"
 import { loginUser } from "@/services/auth"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 const formSchema = z.object({
   email: z.email({message:"Please Provide a valid email"}),
@@ -39,6 +41,9 @@ const formSchema = z.object({
 })
 
 export function LoginForm() {
+      const router = useRouter()
+
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,12 +53,13 @@ export function LoginForm() {
   })
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-         console.log(data);
+        // console.log(data);
     try {
         const res = await loginUser(data)
         
         if(res.success === true) {
              toast.success(res.message)
+             router.push("/")
         }
         else{
              toast.success(res.message)
@@ -146,6 +152,11 @@ export function LoginForm() {
           <Button type="submit" form="form-rhf-demo">
             Login
           </Button>
+         <Button>
+          <Link href={"/"}>
+            Go to Home
+          </Link>
+         </Button>
         </Field>
       </CardFooter>
     </Card>
