@@ -14,4 +14,18 @@ export const mealService = {
     const result = await res.json()
     return result.data
   },
+
+  async getMealsById(id:string) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/provider/meal/${id}`, {
+      
+      cache: "no-store", // public but always fresh
+    })
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch meals")
+    }
+
+    const result = await res.json()
+    return result.data
+  }
 }
