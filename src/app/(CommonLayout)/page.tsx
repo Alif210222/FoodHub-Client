@@ -1,4 +1,5 @@
 
+import ContactSection from "@/components/modules/home/ContactSection";
 import HeroSection from "@/components/modules/home/hero";
 import HomeMeals from "@/components/modules/home/HomeMeals";
 import HowItWorks from "@/components/modules/home/HowItWorks";
@@ -14,6 +15,7 @@ export default function Home() {
        <HomeMeals></HomeMeals>
        <HomeProviders></HomeProviders>
        <HowItWorks></HowItWorks>
+       <ContactSection></ContactSection>
     </div>
   );
 }
