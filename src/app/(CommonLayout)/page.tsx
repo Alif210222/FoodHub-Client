@@ -13,7 +13,7 @@ export default function Home() {
        <HeroSection></HeroSection>
        <HomeMeals></HomeMeals>
        <HomeProviders></HomeProviders>
-      
+       <HowItWorks></HowItWorks>
     </div>
   );
 }
