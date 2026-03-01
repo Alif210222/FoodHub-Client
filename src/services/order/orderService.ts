@@ -33,4 +33,35 @@ async getOrderById(id: string) {
     const result = await res.json()
     return result.data
   },
+
+
+
+   async createOrder(payload: any) {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/order`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // send cookie token
+        credentials: "include", 
+        body: JSON.stringify(payload),
+      }
+    )
+
+    if (!res.ok) {
+      const error = await res.json()
+      throw new Error(error.message || "Failed to create order")
+    }
+
+    return res.json()
+  },
+
+
+
+
 }
+
+
+
