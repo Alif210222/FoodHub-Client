@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { UserLogout } from "@/services/auth";
+import { UserLogOut } from "@/services/auth";
+
 
 interface Props {
   user: {
@@ -17,7 +18,7 @@ export default function DashboardNavbar({ user }: Props) {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await UserLogout();
+    await UserLogOut();
     router.push("/login");
   };
 

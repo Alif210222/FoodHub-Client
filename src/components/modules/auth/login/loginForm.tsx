@@ -29,9 +29,10 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group"
-import { loginUser } from "@/services/auth"
+
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { loginUser } from "@/services/auth"
 
 const formSchema = z.object({
   email: z.email({message:"Please Provide a valid email"}),

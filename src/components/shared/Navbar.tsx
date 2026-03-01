@@ -17,8 +17,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
-import { getUser, UserLogout } from "@/services/auth";
+
 import { useRouter } from "next/navigation";
+import { getUser, UserLogOut } from "@/services/auth";
 
 /**
  * Replace this with your real auth hook (NextAuth / custom auth)
@@ -54,7 +55,7 @@ export default function Navbar() {
     const handleLogout =async ()=>{
           
 
-         await UserLogout()
+         await UserLogOut()
          setUser(null)
          setLoading(true)
          router.push("/login")
