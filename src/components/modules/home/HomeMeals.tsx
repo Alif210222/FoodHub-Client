@@ -29,10 +29,13 @@ export default function HomeMeals() {
     <section className="py-12 mt-15">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">🍽️ Popular Meals</h2>
-
-         
+         <div className="text-center space-y-2 mb-6">
+          <h2 className="text-3xl font-bold">
+            Popular Meals
+          </h2>
+          <p className="text-gray-500">
+           Please Order those  food  and enjoy delicious meals.
+          </p>
         </div>
 
         {/* Grid */}

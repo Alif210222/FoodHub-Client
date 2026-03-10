@@ -31,25 +31,15 @@ export default function ContactSection() {
         </div>
 
         {/* Right */}
-        <div className="rounded-xl border bg-white p-6 shadow-sm space-y-4">
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+        <div className="relative">
+          <img
+            src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092"
+            alt="Delicious food"
+            className="w-full max-w-md mx-auto rounded-3xl shadow-xl"
           />
-          <input
-            type="email"
-            placeholder="Your Email"
-            className="w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
-          />
-          <textarea
-            placeholder="Your Message"
-            rows={4}
-            className="w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
-          />
-          <button className="w-full rounded-md bg-orange-500 py-2 text-white font-medium hover:bg-orange-600 transition">
-            Send Message
-          </button>
+
+          {/* Decorative circle */}
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-orange-200 rounded-full blur-3xl" />
         </div>
       </div>
     </section>

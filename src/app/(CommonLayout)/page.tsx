@@ -4,6 +4,7 @@ import HeroSection from "@/components/modules/home/hero";
 import HomeMeals from "@/components/modules/home/HomeMeals";
 import HowItWorks from "@/components/modules/home/HowItWorks";
 import HomeProviders from "@/components/modules/home/ProviderHomeCard";
+import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button"
 
 
@@ -16,6 +17,8 @@ export default function Home() {
        <HomeProviders></HomeProviders>
        <HowItWorks></HowItWorks>
        <ContactSection></ContactSection>
+
+       <Footer></Footer>
     </div>
   );
 }
