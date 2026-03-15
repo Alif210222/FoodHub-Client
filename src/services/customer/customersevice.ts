@@ -15,4 +15,24 @@ export const customerService = {
     const result = await res.json()
     return result.data
   },
+
+    async updateUserStatus(id: string, status: string) {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/admin/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ status }),
+      }
+    )
+
+    if (!res.ok) {
+      throw new Error("Failed to update user status")
+    }
+
+    return res.json()
+  },
 }

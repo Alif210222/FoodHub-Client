@@ -16,7 +16,7 @@ export default function AdminUserPage() {
     const loadUsers = async () => {
       try {
         const customerData = await customerService.getAllCustomers()
-        const providerData = await providerService.getAllProvidersForAdmin()
+        const providerData = await providerService.getAllProviders()
 
         setCustomers(customerData)
         setProviders(providerData)
@@ -30,15 +30,16 @@ export default function AdminUserPage() {
     loadUsers()
   }, [])
 
-  if (loading) {
-    return <div className="p-6">Loading users...</div>
-  }
+  if (loading) return <div className="p-6">Loading users...</div>
 
   return (
     <div className="p-6 space-y-8">
       <h1 className="text-2xl font-bold">User Management</h1>
 
-      <CustomerTable customers={customers} />
+      <CustomerTable
+        customers={customers}
+        setCustomers={setCustomers}
+      />
 
       <ProviderTable providers={providers} />
     </div>
