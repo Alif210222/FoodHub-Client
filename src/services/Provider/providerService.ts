@@ -14,4 +14,22 @@ export const providerService = {
     const result = await res.json()
     return result.data
   },
+
+async getAllProvidersForAdmin() {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/provider`,
+      {
+        cache: "no-store",
+        credentials: "include",
+      }
+    )
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch providers")
+    }
+
+    const result = await res.json()
+    return result.data
+  },
+
 }
