@@ -58,7 +58,23 @@ async getOrderById(id: string) {
     return res.json()
   },
 
+  // get all order for admin 
+  async getAllOrders() {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/order/admin`,
+      {
+        cache: "no-store",
+        credentials: "include",
+      }
+    )
 
+    if (!res.ok) {
+      throw new Error("Failed to fetch orders")
+    }
+
+    const result = await res.json()
+    return result.data
+  },
 
 
 }
