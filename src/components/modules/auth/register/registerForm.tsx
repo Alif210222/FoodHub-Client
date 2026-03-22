@@ -32,71 +32,85 @@ import {
 
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { loginUser } from "@/services/auth"
+import { loginUser, registerUser } from "@/services/auth"
 
 const formSchema = z.object({
-  email: z.email({message:"Please Provide a valid email"}),
-    
-  password: z.string()
+      name: z.string().min(1,"This field is required "),
+      email: z.string().email("Invalid Email !"),
+      password: z.string().min(5,"Minimum length is 6 characters !"),
+      role: z.enum(["CUSTOMER","PROVIDER"]),
 
 })
 
-export function LoginForm() {
+export function RegisterForm() {
       const router = useRouter()
 
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name:"",
       email: "",
       password: "",
+      role:"CUSTOM"
     },
   })
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
         // console.log(data);
     try {
-        const res = await loginUser(data)
+        const res = await registerUser(data)
         
         if(res.success === true) {
-             toast.success(res.message)
+             toast.success(res.message || "Register Successfully !")
              router.push("/")
         }
         else{
-             toast.success(res.message)
+             toast.error(res.message)
         }
         
     } catch (error:any) {
-        toast.error(error)
+        toast.error(error.message)
         
     }
-    // toast("You submitted the following values:", {
-    //   description: (
-    //     <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-    //       <code>{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    //   position: "bottom-right",
-    //   classNames: {
-    //     content: "flex flex-col gap-2",
-    //   },
-    //   style: {
-    //     "--border-radius": "calc(var(--radius)  + 4px)",
-    //   } as React.CSSProperties,
-    // })
+  
   }
 
 
 
   return (
-    <Card className="w-full sm:max-w-md">
+    <Card className="w-full lg:mt-10 sm:max-w-md">
       <CardHeader>
-        <CardTitle>Login</CardTitle>
+        <CardTitle>Register here</CardTitle>
        
       </CardHeader>
       <CardContent>
         <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
+             {/* Name */}
+               <Controller
+              name="name"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="form-rhf-demo-title">
+                    Name
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="form-rhf-demo-title"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="Enter your name"
+                    autoComplete="off"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+
+            {/* email */}
             <Controller
               name="email"
               control={form.control}
@@ -141,6 +155,29 @@ export function LoginForm() {
               )}
             />
 
+             
+            <Controller
+                 name="role"
+                 control={form.control}
+                 render={({ field, fieldState }) => (
+                   <Field data-invalid={fieldState.invalid}>
+                     <FieldLabel>Role</FieldLabel>
+                     <select
+                       {...field}
+                       className="w-full border rounded-md p-2"
+                     >
+                       <option value="">Select Role</option>
+                       <option value="CUSTOMER">Customer</option>
+                       <option value="PROVIDER">Provider</option>
+                     </select>
+               
+                     {fieldState.invalid && (
+                       <FieldError errors={[fieldState.error]} />
+                     )}
+                   </Field>
+                 )}
+/>
+
 
           </FieldGroup>
         </form>
@@ -151,16 +188,16 @@ export function LoginForm() {
         <Field orientation="vertical">
        
           <Button type="submit" form="form-rhf-demo">
-            Login
+            Register
           </Button>
          <Button>
-          <Link href={"/"}>
+          <Link href="/">
             Go to Home
           </Link>
          </Button>
         </Field>
-      </CardFooter>
-       <p className="text-center">If don't have an account <Link href={"/register"}><span className="underline text-blue-500" > Register</span> </Link></p>
+      </CardFooter> 
+       <p className="text-center">Already have an account  <Link href={"/login"}><span className="underline text-blue-500" >Login</span> </Link></p>
     </Card>
   )
 }

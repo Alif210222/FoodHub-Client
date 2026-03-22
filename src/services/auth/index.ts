@@ -3,6 +3,30 @@ import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
+
+export const registerUser = async (payload: any) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Registration failed");
+    }
+
+    return data;
+  } catch (error: any) {
+    throw new Error(error.message || "Something went wrong");
+  }
+};
+
+
 export const loginUser = async (userData: FieldValues) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/login`, {
@@ -22,6 +46,30 @@ export const loginUser = async (userData: FieldValues) => {
     console.log(error);
   }
 };
+
+//get current user
+export const getMyProfile = async () => {
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/user/me`;
+
+  console.log("Fetching from:", url); // 🔥
+
+  const res = await fetch(url, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const text = await res.text();
+  console.log("Response:", text); // 🔥
+
+  const data = JSON.parse(text);
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to fetch profile");
+  }
+
+  return data.data;
+};
+
 
 export const getUser = async () => {
   const storeCookie = await cookies();

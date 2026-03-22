@@ -76,6 +76,21 @@ async getOrderById(id: string) {
     return result.data
   },
 
+  // get provider order states
+  async getProviderStats() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/order/provider/stats`, {
+     
+    credentials: "include",
+  });
+
+
+  if (!res.ok) {
+      throw new Error("Failed to fetch orders")
+    }
+
+   return res.json()
+},
+
 
 }
 
