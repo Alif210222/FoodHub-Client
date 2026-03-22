@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { addToCart } from "@/utils/cart"
+import { toast } from "sonner"
 
 export default function MealDetailsCard({ meal }: { meal: any }) {
   return (
@@ -96,6 +98,7 @@ export default function MealDetailsCard({ meal }: { meal: any }) {
         </div>
 
         {/* Order Button */}
+
         <Link href={`/orders/create?mealId=${meal.id}`}>
           <Button
             className="w-full mt-4"
@@ -104,6 +107,16 @@ export default function MealDetailsCard({ meal }: { meal: any }) {
             Order This Meal
           </Button>
         </Link>
+
+        <Button
+        className="w-full mt-4"
+          onClick={() => {
+            addToCart(meal)
+            toast.success("Added to cart 🛒")
+          }}
+        >
+          Add to Cart
+      </Button>
       </CardContent>
     </Card>
   )

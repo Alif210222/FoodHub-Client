@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, ShoppingCart } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -37,10 +37,29 @@ const mockUser: User | null = null;
 export default function Navbar() {
     const [user,setUser] = useState(null)
     const [loading,setLoading] = useState(false)
+    const [count,setCount] = useState(0)
     const router = useRouter();
 
-    console.log(user);
+    //console.log(user);
 
+    
+    // cart 
+   useEffect(() => {
+
+  const updateCart = () => {
+           const cart = JSON.parse(localStorage.getItem("cart") || "[]")
+           setCount(cart.length)
+         }
+       
+         updateCart()
+       
+         window.addEventListener("storage", updateCart)
+       
+         return () => window.removeEventListener("storage", updateCart)
+     }, [])
+
+
+     // get current user 
     useEffect(()=>{
       const getCurrentUser = async() =>{
         const userData = await getUser()
@@ -75,6 +94,18 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
+
+           <Link href="/cart" className="relative">
+             <ShoppingCart className="w-6 h-6 text-gray-700 hover:text-black" />
+
+                {/* Badge */}
+                {count > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                    {count}
+                  </span>
+                )}
+           </Link>
+
           <Link href="/meals" className="text-sm font-medium hover:text-orange-500">
             Meals
           </Link>
@@ -112,6 +143,18 @@ export default function Navbar() {
 
             <SheetContent side="right">
               <div className="flex flex-col gap-4 mt-6">
+                <Link href="/cart" className="relative">
+                      <ShoppingCart className="w-6 h-6 text-gray-700 hover:text-black" />
+
+                          {/* Badge */}
+                          {count > 0 && (
+                            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                              {count}
+                            </span>
+                          )}
+                     </Link>
+
+
                 <Link href="/meals">Meals</Link>
                 <Link href="/providers">Providers</Link>
                 <Link href="/about">About</Link>
