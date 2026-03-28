@@ -95,7 +95,10 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
 
-           <Link href="/cart" className="relative">
+
+          { user?.role === "CUSTOMER" &&  <> 
+          
+          <Link href="/cart" className="relative">
              <ShoppingCart className="w-6 h-6 text-gray-700 hover:text-black" />
 
                 {/* Badge */}
@@ -104,7 +107,7 @@ export default function Navbar() {
                     {count}
                   </span>
                 )}
-           </Link>
+           </Link> </>}
 
           <Link href="/meals" className="text-sm font-medium hover:text-orange-500">
             Meals
@@ -227,8 +230,9 @@ function UserDropdown({ user, onLogout }: { user: User; onLogout:()=> void}) {
         {user.role === "CUSTOMER" && (
           <>
             <DropdownMenuItem asChild>
-              <Link href="/cart">Cart</Link>
+              
             </DropdownMenuItem>
+            
             <DropdownMenuItem asChild>
               <Link href="/orders">My Orders</Link>
             </DropdownMenuItem>

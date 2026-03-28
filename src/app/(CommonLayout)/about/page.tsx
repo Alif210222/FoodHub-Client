@@ -1,9 +1,11 @@
+import Link from "next/link";
+
 export default function AboutPage() {
   return (
-    <div className="bg-white text-gray-800">
+    <div className="bg-white text-gray-800 px-4">
 
       {/* 1️⃣ Hero Section */}
-      <section className="bg-orange-500 text-white py-20 mt-10 rounded-2xl">
+      <section className="bg-orange-500 text-white py-20  mt-10 rounded-2xl">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             About FoodHub 🍱
@@ -137,12 +139,12 @@ export default function AboutPage() {
           <p className="mb-6">
             Join FoodHub today and enjoy meals from your favorite providers.
           </p>
-          <a
+          <Link
             href="/meals"
             className="inline-block bg-white text-orange-500 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition"
           >
             Browse Meals
-          </a>
+          </Link>
         </div>
       </section>
 

@@ -35,6 +35,7 @@ export const loginUser = async (userData: FieldValues) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
+      credentials: "include",
     });
     const result = await res.json();
     const storeCookie = await cookies();
@@ -51,7 +52,7 @@ export const loginUser = async (userData: FieldValues) => {
 export const getMyProfile = async () => {
   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/user/me`;
 
-  console.log("Fetching from:", url); // 🔥
+  console.log("Fetching from:", url); 
 
   const res = await fetch(url, {
     method: "GET",

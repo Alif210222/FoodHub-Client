@@ -8,6 +8,7 @@ import { orderService } from "@/services/order/orderService"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { CreateOrderInput, createOrderSchema } from "@/schemas/order.scema"
+import { request } from "http"
 
 export default function CreateOrderForm({
   meal,
@@ -40,11 +41,20 @@ export default function CreateOrderForm({
 
       await orderService.createOrder(payload)
 
-      toast.success("Order placed successfully 🎉")
-    } catch (err: any) {
-      toast.error(err.message)
-    }
+      toast.success("Order placed successfully ")
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+         toast.error(err.message)
+       } else {
+         toast.error("Something went wrong")
+       }
+         }
   }
+
+
+
+  console.log (meal)
+  // console.log(request.user);
 
   return (
     <form

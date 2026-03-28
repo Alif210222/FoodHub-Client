@@ -34,14 +34,12 @@ export default function DashboardSidebar({ role }: Props) {
               Dashboard
             </SidebarLink>
             <SidebarLink href="/admin/users">
-              Users
+             Manage user
             </SidebarLink>
             <SidebarLink href="/admin/orders">
               Orders
             </SidebarLink>
-            <SidebarLink href="/admin/categories">
-              Categories
-            </SidebarLink>
+            
           </>
         )}
 

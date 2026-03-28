@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getUser } from "./services/auth";
+import { getUser } from "./src/services/auth";
 
 
 const ALLOWED_ROLE = ["CUSTOMER", "ADMIN", "PROVIDER"];

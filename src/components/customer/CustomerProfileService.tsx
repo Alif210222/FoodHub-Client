@@ -1,6 +1,11 @@
 "use client";
 
 export default function CustomerProfileCard({ user }: any) {
+
+
+     console.log(user);
+
+
   return (
     <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-lg border p-6 space-y-5">
       
